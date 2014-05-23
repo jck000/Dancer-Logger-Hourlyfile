@@ -11,7 +11,7 @@ use IO::File;
 use File::Path qw(make_path);
 use POSIX qw/strftime/;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub init {
   my $self = shift;

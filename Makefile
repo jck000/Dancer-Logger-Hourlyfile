@@ -16,10 +16,11 @@
 #     BUILD_REQUIRES => { Test::More=>q[0] }
 #     CONFIGURE_REQUIRES => { ExtUtils::MakeMaker=>q[0] }
 #     LICENSE => q[Artistic_2_0]
+#     META_MERGE => { resources=>{ homepage=>q[https://github.com/jck000/Dancer-Logger-Hourlyfiles/], repository=>q[https://github.com/jck000/Dancer-Logger-Hourlyfiles], bugtracker=>q[https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues] } }
 #     MIN_PERL_VERSION => q[5.006]
 #     NAME => q[Dancer::Logger::Hourlyfile]
 #     PL_FILES => {  }
-#     PREREQ_PM => { Test::More=>q[0] }
+#     PREREQ_PM => { Test::More=>q[0], Dancer=>q[1.3099] }
 #     TEST_REQUIRES => {  }
 #     VERSION_FROM => q[lib/Dancer/Logger/Hourlyfile.pm]
 #     clean => { FILES=>q[Dancer-Logger-Hourlyfile-*] }
@@ -62,11 +63,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Dancer::Logger::Hourlyfile
 NAME_SYM = Dancer_Logger_Hourlyfile
-VERSION = 0.02
+VERSION = 0.03
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_02
+VERSION_SYM = 0_03
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.02
+XS_VERSION = 0.03
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -263,7 +264,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Dancer-Logger-Hourlyfile
-DISTVNAME = Dancer-Logger-Hourlyfile-0.02
+DISTVNAME = Dancer-Logger-Hourlyfile-0.03
 
 
 # --- MakeMaker macro section:
@@ -504,8 +505,14 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    - t' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Dancer: 1.3099' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Test::More: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  perl: 5.006' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: 0.02' >> META_new.yml
+	$(NOECHO) $(ECHO) 'resources:' >> META_new.yml
+	$(NOECHO) $(ECHO) '  bugtracker: https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues' >> META_new.yml
+	$(NOECHO) $(ECHO) '  homepage: https://github.com/jck000/Dancer-Logger-Hourlyfiles/' >> META_new.yml
+	$(NOECHO) $(ECHO) '  repository: https://github.com/jck000/Dancer-Logger-Hourlyfiles' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: 0.03' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
 	$(NOECHO) $(ECHO) '{' > META_new.json
@@ -542,12 +549,23 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '      },' >> META_new.json
 	$(NOECHO) $(ECHO) '      "runtime" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Dancer" : "1.3099",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Test::More" : "0",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "perl" : "5.006"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "0.02"' >> META_new.json
+	$(NOECHO) $(ECHO) '   "resources" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '      "bugtracker" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '         "web" : "https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues"' >> META_new.json
+	$(NOECHO) $(ECHO) '      },' >> META_new.json
+	$(NOECHO) $(ECHO) '      "homepage" : "https://github.com/jck000/Dancer-Logger-Hourlyfiles/",' >> META_new.json
+	$(NOECHO) $(ECHO) '      "repository" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '         "url" : "https://github.com/jck000/Dancer-Logger-Hourlyfiles"' >> META_new.json
+	$(NOECHO) $(ECHO) '      }' >> META_new.json
+	$(NOECHO) $(ECHO) '   },' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "0.03"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
 
@@ -853,6 +871,8 @@ ppd :
 	$(NOECHO) $(ECHO) '    <AUTHOR>Jack "Hagop" Bilemjian &lt;jck000@gmail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <PERLCORE VERSION="5,006,0,0" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Dancer::" VERSION="1.3099" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::More" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-gnu-thread-multi-5.14" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> $(DISTNAME).ppd

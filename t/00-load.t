@@ -7,7 +7,7 @@ use Test::More;
 plan tests => 1;
 
 BEGIN {
-    use_ok( 'Dancer::Logger::RotateHourly' ) || print "Bail out!\n";
+    use_ok( 'Dancer::Logger::Hourlyfile' ) || print "Bail out!\n";
 }
 
-diag( "Testing Dancer::Logger::RotateHourly $Dancer::Logger::RotateHourly::VERSION, Perl $], $^X" );
+diag( "Testing Dancer::Logger::Hourlyfile $Dancer::Logger::Hourlyfile::VERSION, Perl $], $^X" );

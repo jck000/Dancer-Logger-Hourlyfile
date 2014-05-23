@@ -18,5 +18,11 @@ no_index:
     - t
     - inc
 requires:
+  Dancer: 1.3099
+  Test::More: 0
   perl: 5.006
-version: 0.02
+resources:
+  bugtracker: https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues
+  homepage: https://github.com/jck000/Dancer-Logger-Hourlyfiles/
+  repository: https://github.com/jck000/Dancer-Logger-Hourlyfiles
+version: 0.03
