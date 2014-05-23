@@ -12,11 +12,11 @@
 #   MakeMaker Parameters:
 
 #     ABSTRACT_FROM => q[lib/Dancer/Logger/Hourlyfile.pm]
-#     AUTHOR => [q[Jack "Hagop" Bilemjian <jck000@gmail.com>]]
+#     AUTHOR => [q[Hagop "Jack" Bilemjian <jck000@gmail.com>]]
 #     BUILD_REQUIRES => { Test::More=>q[0] }
 #     CONFIGURE_REQUIRES => { ExtUtils::MakeMaker=>q[0] }
 #     LICENSE => q[Artistic_2_0]
-#     META_MERGE => { resources=>{ homepage=>q[https://github.com/jck000/Dancer-Logger-Hourlyfiles/], repository=>q[https://github.com/jck000/Dancer-Logger-Hourlyfiles], bugtracker=>q[https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues] } }
+#     META_MERGE => { resources=>{ homepage=>q[https://github.com/jck000/Dancer-Logger-Hourlyfile/], repository=>q[https://github.com/jck000/Dancer-Logger-Hourlyfile], bugtracker=>q[https://github.com/jck000/Dancer-Logger-Hourlyfile/issues] } }
 #     MIN_PERL_VERSION => q[5.006]
 #     NAME => q[Dancer::Logger::Hourlyfile]
 #     PL_FILES => {  }
@@ -63,11 +63,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Dancer::Logger::Hourlyfile
 NAME_SYM = Dancer_Logger_Hourlyfile
-VERSION = 0.03
+VERSION = 0.04
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_03
+VERSION_SYM = 0_04
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.03
+XS_VERSION = 0.04
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -264,7 +264,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Dancer-Logger-Hourlyfile
-DISTVNAME = Dancer-Logger-Hourlyfile-0.03
+DISTVNAME = Dancer-Logger-Hourlyfile-0.04
 
 
 # --- MakeMaker macro section:
@@ -488,7 +488,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '---' > META_new.yml
 	$(NOECHO) $(ECHO) 'abstract: '\''Rotate writing to log files on an horly basis'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
-	$(NOECHO) $(ECHO) '  - "Jack \"Hagop\" Bilemjian <jck000@gmail.com>"' >> META_new.yml
+	$(NOECHO) $(ECHO) '  - "Hagop \"Jack\" Bilemjian <jck000@gmail.com>"' >> META_new.yml
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Test::More: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
@@ -509,16 +509,16 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '  Test::More: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  perl: 5.006' >> META_new.yml
 	$(NOECHO) $(ECHO) 'resources:' >> META_new.yml
-	$(NOECHO) $(ECHO) '  bugtracker: https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues' >> META_new.yml
-	$(NOECHO) $(ECHO) '  homepage: https://github.com/jck000/Dancer-Logger-Hourlyfiles/' >> META_new.yml
-	$(NOECHO) $(ECHO) '  repository: https://github.com/jck000/Dancer-Logger-Hourlyfiles' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: 0.03' >> META_new.yml
+	$(NOECHO) $(ECHO) '  bugtracker: https://github.com/jck000/Dancer-Logger-Hourlyfile/issues' >> META_new.yml
+	$(NOECHO) $(ECHO) '  homepage: https://github.com/jck000/Dancer-Logger-Hourlyfile/' >> META_new.yml
+	$(NOECHO) $(ECHO) '  repository: https://github.com/jck000/Dancer-Logger-Hourlyfile' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: 0.04' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
 	$(NOECHO) $(ECHO) '{' > META_new.json
 	$(NOECHO) $(ECHO) '   "abstract" : "Rotate writing to log files on an horly basis",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "author" : [' >> META_new.json
-	$(NOECHO) $(ECHO) '      "Jack \"Hagop\" Bilemjian <jck000@gmail.com>"' >> META_new.json
+	$(NOECHO) $(ECHO) '      "Hagop \"Jack\" Bilemjian <jck000@gmail.com>"' >> META_new.json
 	$(NOECHO) $(ECHO) '   ],' >> META_new.json
 	$(NOECHO) $(ECHO) '   "dynamic_config" : 1,' >> META_new.json
 	$(NOECHO) $(ECHO) '   "generated_by" : "ExtUtils::MakeMaker version 6.78, CPAN::Meta::Converter version 2.120351",' >> META_new.json
@@ -558,14 +558,14 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "resources" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '      "bugtracker" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '         "web" : "https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues"' >> META_new.json
+	$(NOECHO) $(ECHO) '         "web" : "https://github.com/jck000/Dancer-Logger-Hourlyfile/issues"' >> META_new.json
 	$(NOECHO) $(ECHO) '      },' >> META_new.json
-	$(NOECHO) $(ECHO) '      "homepage" : "https://github.com/jck000/Dancer-Logger-Hourlyfiles/",' >> META_new.json
+	$(NOECHO) $(ECHO) '      "homepage" : "https://github.com/jck000/Dancer-Logger-Hourlyfile/",' >> META_new.json
 	$(NOECHO) $(ECHO) '      "repository" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '         "url" : "https://github.com/jck000/Dancer-Logger-Hourlyfiles"' >> META_new.json
+	$(NOECHO) $(ECHO) '         "url" : "https://github.com/jck000/Dancer-Logger-Hourlyfile"' >> META_new.json
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "0.03"' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "0.04"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
 
@@ -868,7 +868,7 @@ testdb_static :: testdb_dynamic
 ppd :
 	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="$(VERSION)">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Rotate writing to log files on an horly basis</ABSTRACT>' >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '    <AUTHOR>Jack "Hagop" Bilemjian &lt;jck000@gmail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    <AUTHOR>Hagop "Jack" Bilemjian &lt;jck000@gmail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <PERLCORE VERSION="5,006,0,0" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Dancer::" VERSION="1.3099" />' >> $(DISTNAME).ppd

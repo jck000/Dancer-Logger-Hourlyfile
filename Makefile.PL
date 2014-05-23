@@ -25,9 +25,9 @@ WriteMakefile(
     clean => { FILES => 'Dancer-Logger-Hourlyfile-*' },
     META_MERGE => {
         resources => {
-            repository => 'https://github.com/jck000/Dancer-Logger-Hourlyfiles',
-            bugtracker => 'https://github.com/jck000/Dancer-Logger-Hourlyfiles/issues',
-            homepage   => 'https://github.com/jck000/Dancer-Logger-Hourlyfiles/',
+            repository => 'https://github.com/jck000/Dancer-Logger-Hourlyfile',
+            bugtracker => 'https://github.com/jck000/Dancer-Logger-Hourlyfile/issues',
+            homepage   => 'https://github.com/jck000/Dancer-Logger-Hourlyfile/',
         },
     },
 );
