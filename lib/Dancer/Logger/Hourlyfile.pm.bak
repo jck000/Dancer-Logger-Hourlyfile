@@ -11,7 +11,7 @@ use IO::File;
 use File::Path qw(make_path);
 use POSIX qw/strftime/;
 
-our $VERSION = '0.04';
+our $VERSION = '0.06';
 
 sub init {
   my $self = shift;
@@ -30,15 +30,6 @@ sub init {
     $self->{log_time} = 'localtime';
   }
 
-  open(my $LOG, ">>", "/tmp/rotatehourly.log");
-  #$LOG->autoflush(1);
-  print $LOG "init\n";
-  print $LOG "PATH:  $self->{log_path}\n";
-  print $LOG "FILE:  $self->{log_file}\n";
-  print $LOG "HOURLY:$self->{log_hourly}\n";
-  print $LOG "TIME:  $self->{log_time}\n";
-  $self->{LOG} = $LOG;
-
 }
 
 
@@ -49,7 +40,6 @@ sub _log {
   $self->_setfh;
 
   my $fh  = $self->{fh};
-  my $LOG = $self->{LOG};
 
   $fh->print( $self->format_message( $level => $message ) )
     or carp "writing logs to file $self->{logfile} failed: $!";
@@ -59,10 +49,6 @@ sub _log {
 sub _setfh {
   my $self = shift;
  
-  my $LOG = $self->{LOG};
-
-  print $LOG "_setfh\n";
-
   my $test_fh      = $self->{fh};
   my $current_time = undef;
   my $path_time    = undef;
@@ -79,59 +65,41 @@ sub _setfh {
     $file_time    = POSIX::strftime( "%Y%m%d%H_",   localtime ) ;
   }
 
-
-  print $LOG "START\n";
-  print $LOG "PATH:      $self->{log_path}\n";
-  print $LOG "FILE:      $self->{log_file}\n";
-  print $LOG "HOURLY:    $self->{log_hourly}\n";
-  print $LOG "TIME:      $self->{log_time}\n";
-  print $LOG "CURR TIME: $current_time\n";
-  print $LOG "PATH TIME: $path_time\n";
-  print $LOG "FILE TIME: $file_time\n\n";
-
-
   # Return if fh is good
   if ( ref $test_fh && $test_fh->opened ) {  # fh exists and is open
-    print $LOG "fh exists and is opened \n\n";
-    return ;
-  }
-  if ( exists $self->{log_current} && $self->{log_current} eq $current_time ) {
-    print $LOG "Same time as last time through\n";
-    print $LOG "$current_time eq $self->{log_current}\n";
     return ;
   }
 
-  # fh is no good.  Clean it up
+  # Date hasn't changed
+  if ( exists $self->{log_current} && $self->{log_current} eq $current_time ) {
+    return ;
+  }
+
+  # if here, then fh is no good.  Clean it up
   close($test_fh) if ( ref $test_fh );;
 
   $self->{log_current} = $current_time;    # reset tracking of time change
   $self->{log_file}    = $self->{log_path} ;
 
+  # YYYY/MM/DD to path if extended
   if ( $self->{log_hourly} eq 'extended' ) {
     $self->{log_path} .= $path_time ;
   }
 
+  # Make sure path exists
   make_path( $self->{log_path} );
-  print $LOG "make_path\n";
 
+  # finish building filename
   $self->{log_file}   = $self->{log_path} . $file_time . $self->{log_fname};
-  print $LOG "LOG FILE:  $self->{log_file}\n";
 
+  # get a new fh
   open( my $fh, '>>', $self->{log_file} )
     || croak "Unable to open $self->{log_file}: $!";
 
   $fh->autoflush(1);
 
+  # store fh for later use
   $self->{fh} = $fh;
-  print $LOG "\nassigned fh to \$self()\n";
-  print $LOG "PATH:      $self->{log_path}\n" ;
-  print $LOG "FILE:      $self->{log_file}\n" ;
-  print $LOG "HOURLY:    $self->{log_hourly}\n" ;
-  print $LOG "TIME:      $self->{log_time}\n" ;
-  print $LOG "CURR TIME: $current_time\n" ;
-  print $LOG "PATH TIME: $path_time\n" ;
-  print $LOG "FILE TIME: $file_time\n" ;
-  print $LOG "------\n\n\n" ;
 
 }
 
@@ -142,21 +110,16 @@ __END__
 
 =head1 NAME
 
-Dancer::Logger::Hourlyfile - Rotate writing to log files on an horly basis
-
-
-=head1 VERSION
-
-Version 0.01
+Dancer::Logger::Hourlyfile - Rotate writing to log files on an hourly basis
 
 
 =head1 DESCRIPTION
 
-This class will write log entries to a separate file every hour.  It will append YYYMMDDHH to hour logfile name.  If you have multiple servers in a distributed environment, you can even specify to use GMT for the time.  Finally, you can specify even greater breakdown by writing into subdirectories YYYY/MM/DD/
+This module will write log entries to a separate file every hour.  It will append YYYYMMDDHH to each hourly logfile name.  Specify local time or GMT time.  Finally, you use the "extended" filename setting to further breakdown by writing into subdirectories YYYY/MM/DD/
 
   filename:
 
-      log/2007120119_filename.log
+      log/2014052019_filename.log
       ^^^ ^^^^^^^^^^ ^^^^^^^^
       |   YYYYMMDDHH Filename 
       Path
@@ -164,7 +127,7 @@ This class will write log entries to a separate file every hour.  It will append
               
   extended:
 
-      log/2007/12/01/2007120119_filename.log
+      log/2014/05/20/2014052019_filename.log
       |              ^^^^^^^^^^ ^^^^^^^^
       Path           YYYYMMDDHH Filename 
 
@@ -229,7 +192,7 @@ In your Dancer's environment file set the following:
 
 =head1 AUTHOR
 
-Jack "Hagop" Bilemjian, C<< <jck000 at gmail.com> >>
+Hagop "Jack" Bilemjian, C<< <jck000 at gmail.com> >>
 
 
 =head1 BUGS
@@ -266,15 +229,17 @@ L<http://cpanratings.perl.org/d/Dancer-Logger-Hourlyfile>
 
 L<http://search.cpan.org/dist/Dancer-Logger-Hourlyfile/>
 
-=back
+
 
 
 =head1 ACKNOWLEDGEMENTS
 
+Dancer!  
+
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2014 Jack "Hagop" Bilemjian.
+Copyright 2014 Hagop "Jack" Bilemjian.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
