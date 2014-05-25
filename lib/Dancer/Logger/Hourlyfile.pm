@@ -11,7 +11,7 @@ use IO::File;
 use File::Path qw(make_path);
 use POSIX qw/strftime/;
 
-our $VERSION = '0.04';
+our $VERSION = '0.06';
 
 sub init {
   my $self = shift;
@@ -110,21 +110,16 @@ __END__
 
 =head1 NAME
 
-Dancer::Logger::Hourlyfile - Rotate writing to log files on an horly basis
-
-
-=head1 VERSION
-
-Version 0.01
+Dancer::Logger::Hourlyfile - Rotate writing to log files on an hourly basis
 
 
 =head1 DESCRIPTION
 
-This class will write log entries to a separate file every hour.  It will append YYYMMDDHH to hour logfile name.  If you have multiple servers in a distributed environment, you can even specify to use GMT for the time.  Finally, you can specify even greater breakdown by writing into subdirectories YYYY/MM/DD/
+This module will write log entries to a separate file every hour.  It will append YYYYMMDDHH to each hourly logfile name.  Specify local time or GMT time.  Finally, you use the "extended" filename setting to further breakdown by writing into subdirectories YYYY/MM/DD/
 
   filename:
 
-      log/2007120119_filename.log
+      log/2014052019_filename.log
       ^^^ ^^^^^^^^^^ ^^^^^^^^
       |   YYYYMMDDHH Filename 
       Path
@@ -132,7 +127,7 @@ This class will write log entries to a separate file every hour.  It will append
               
   extended:
 
-      log/2007/12/01/2007120119_filename.log
+      log/2014/05/20/2014052019_filename.log
       |              ^^^^^^^^^^ ^^^^^^^^
       Path           YYYYMMDDHH Filename 
 
@@ -197,7 +192,7 @@ In your Dancer's environment file set the following:
 
 =head1 AUTHOR
 
-Jack "Hagop" Bilemjian, C<< <jck000 at gmail.com> >>
+Hagop "Jack" Bilemjian, C<< <jck000 at gmail.com> >>
 
 
 =head1 BUGS
@@ -234,15 +229,17 @@ L<http://cpanratings.perl.org/d/Dancer-Logger-Hourlyfile>
 
 L<http://search.cpan.org/dist/Dancer-Logger-Hourlyfile/>
 
-=back
+
 
 
 =head1 ACKNOWLEDGEMENTS
 
+Dancer!  
+
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2014 Jack "Hagop" Bilemjian.
+Copyright 2014 Hagop "Jack" Bilemjian.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a

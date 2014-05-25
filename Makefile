@@ -20,7 +20,7 @@
 #     MIN_PERL_VERSION => q[5.006]
 #     NAME => q[Dancer::Logger::Hourlyfile]
 #     PL_FILES => {  }
-#     PREREQ_PM => { Test::More=>q[0], Dancer=>q[1.3099] }
+#     PREREQ_PM => { Test::More=>q[0], File::Temp=>q[0.22], Dancer=>q[1.3099] }
 #     TEST_REQUIRES => {  }
 #     VERSION_FROM => q[lib/Dancer/Logger/Hourlyfile.pm]
 #     clean => { FILES=>q[Dancer-Logger-Hourlyfile-*] }
@@ -63,11 +63,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Dancer::Logger::Hourlyfile
 NAME_SYM = Dancer_Logger_Hourlyfile
-VERSION = 0.04
+VERSION = 0.06
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_04
+VERSION_SYM = 0_06
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.04
+XS_VERSION = 0.06
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -189,13 +189,10 @@ PERL_ARCHIVE       =
 PERL_ARCHIVE_AFTER = 
 
 
-TO_INST_PM = lib/Dancer/Logger/Hourlyfile.pm \
-	lib/Dancer/Logger/Hourlyfile.pm.bak
+TO_INST_PM = lib/Dancer/Logger/Hourlyfile.pm
 
 PM_TO_BLIB = lib/Dancer/Logger/Hourlyfile.pm \
-	blib/lib/Dancer/Logger/Hourlyfile.pm \
-	lib/Dancer/Logger/Hourlyfile.pm.bak \
-	blib/lib/Dancer/Logger/Hourlyfile.pm.bak
+	blib/lib/Dancer/Logger/Hourlyfile.pm
 
 
 # --- MakeMaker platform_constants section:
@@ -264,7 +261,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Dancer-Logger-Hourlyfile
-DISTVNAME = Dancer-Logger-Hourlyfile-0.04
+DISTVNAME = Dancer-Logger-Hourlyfile-0.06
 
 
 # --- MakeMaker macro section:
@@ -486,7 +483,7 @@ realclean purge ::  clean realclean_subdirs
 metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) '---' > META_new.yml
-	$(NOECHO) $(ECHO) 'abstract: '\''Rotate writing to log files on an horly basis'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) 'abstract: '\''Rotate writing to log files on an hourly basis'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  - "Hagop \"Jack\" Bilemjian <jck000@gmail.com>"' >> META_new.yml
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
@@ -506,17 +503,18 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Dancer: 1.3099' >> META_new.yml
+	$(NOECHO) $(ECHO) '  File::Temp: 0.22' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Test::More: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  perl: 5.006' >> META_new.yml
 	$(NOECHO) $(ECHO) 'resources:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  bugtracker: https://github.com/jck000/Dancer-Logger-Hourlyfile/issues' >> META_new.yml
 	$(NOECHO) $(ECHO) '  homepage: https://github.com/jck000/Dancer-Logger-Hourlyfile/' >> META_new.yml
 	$(NOECHO) $(ECHO) '  repository: https://github.com/jck000/Dancer-Logger-Hourlyfile' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: 0.04' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: 0.06' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
 	$(NOECHO) $(ECHO) '{' > META_new.json
-	$(NOECHO) $(ECHO) '   "abstract" : "Rotate writing to log files on an horly basis",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "abstract" : "Rotate writing to log files on an hourly basis",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "author" : [' >> META_new.json
 	$(NOECHO) $(ECHO) '      "Hagop \"Jack\" Bilemjian <jck000@gmail.com>"' >> META_new.json
 	$(NOECHO) $(ECHO) '   ],' >> META_new.json
@@ -550,6 +548,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '      "runtime" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Dancer" : "1.3099",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "File::Temp" : "0.22",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Test::More" : "0",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "perl" : "5.006"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
@@ -565,7 +564,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '         "url" : "https://github.com/jck000/Dancer-Logger-Hourlyfile"' >> META_new.json
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "0.04"' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "0.06"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
 
@@ -867,11 +866,12 @@ testdb_static :: testdb_dynamic
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
 	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="$(VERSION)">' > $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '    <ABSTRACT>Rotate writing to log files on an horly basis</ABSTRACT>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    <ABSTRACT>Rotate writing to log files on an hourly basis</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Hagop "Jack" Bilemjian &lt;jck000@gmail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <PERLCORE VERSION="5,006,0,0" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Dancer::" VERSION="1.3099" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="File::Temp" VERSION="0.22" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::More" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-gnu-thread-multi-5.14" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
@@ -883,8 +883,7 @@ ppd :
 
 pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
-	  lib/Dancer/Logger/Hourlyfile.pm blib/lib/Dancer/Logger/Hourlyfile.pm \
-	  lib/Dancer/Logger/Hourlyfile.pm.bak blib/lib/Dancer/Logger/Hourlyfile.pm.bak 
+	  lib/Dancer/Logger/Hourlyfile.pm blib/lib/Dancer/Logger/Hourlyfile.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 
