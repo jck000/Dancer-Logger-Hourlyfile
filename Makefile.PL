@@ -18,7 +18,6 @@ WriteMakefile(
         'Test::More' => 0,
     },
     PREREQ_PM => {
-        'Test::More' => 0,
         'File::Temp' => 0.22,
         'Dancer'     => 1.3099,
     },
