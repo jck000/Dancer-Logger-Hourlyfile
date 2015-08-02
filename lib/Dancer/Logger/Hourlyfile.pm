@@ -11,7 +11,7 @@ use IO::File;
 use File::Path qw(make_path);
 use POSIX qw/strftime/;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub init {
   my $self = shift;
@@ -61,7 +61,7 @@ sub _setfh {
     $file_time    = POSIX::strftime( "%Y%m%d%H_",   gmtime    ) ;
   } else {
     $current_time = POSIX::strftime( "%Y-%m-%d-%H", localtime ) ;
-    $path_time    = POSIX::strftime( "%Y/%m/%d/", localtime ) ;
+    $path_time    = POSIX::strftime( "%Y/%m/%d/",   localtime ) ;
     $file_time    = POSIX::strftime( "%Y%m%d%H_",   localtime ) ;
   }
 
@@ -115,7 +115,7 @@ Dancer::Logger::Hourlyfile - Rotate writing to log files on an hourly basis
 
 =head1 DESCRIPTION
 
-This module will write log entries to a separate file every hour.  It will append YYYYMMDDHH to each hourly logfile name.  Specify local time or GMT time.  Finally, you use the "extended" filename setting to further breakdown by writing into subdirectories YYYY/MM/DD/
+This module will write log entries to a separate file every hour.  Like an automated logrotate.  It will append YYYYMMDDHH to each hourly logfile name.  Specify local time or GMT time.  Finally, use the "extended" filename setting to further breakdown by writing into subdirectories YYYY/MM/DD/
 
   filename:
 
